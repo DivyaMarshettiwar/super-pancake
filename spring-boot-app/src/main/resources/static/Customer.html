@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script>
+        $(function () {
+            $("#custform").submit(function (event) {
+                event.preventDefault();
+                var form = $(this);
+            var custObj = {
+            		name : $("#custName").val(),
+            		email : $("#custEmail").val(),
+            		password1 : $("#custPass1").val(),
+            		password2 : $("#custPass2").val(),
+            		mobileNumber : $("#custMobno").val()
+            };
+            var custJson = JSON.stringify(custObj);
+            alert(custJson);
+            
+            $.ajax({
+                url : "http://localhost:8080/register",
+                type: "POST",
+               	dataType: "json",
+                contentType:"application/json",
+                data:custJson,
+                success:function(response){
+                    //alert("Cutomer is Registered");
+                    alert(JSON.stringify(response));
+                    if(response.status == true)
+                        alert("Registration successful. Your ID id : " + response.registeredCustomerId);
+                    else
+                        alert("Registration failed !");
+                }
+         
+            })
+               //alert("Customer Registered Successfully")
+        })
+    })
+    </script>
+</head>
+
+<body>
+    <form id="custform">
+        Enter  Name: <input type="text" id="custName" /><br />
+        Enter  Email: <input type= "email" id="custEmail" /><br />
+        Enter  Password: <input type="password" id="custPass1"/><br />
+        Enter  Password Confirm: <input type="password" id="custPass2"/><br />
+        Enter  Mobile Number: <input type="number" id="custMobno" /><br />
+<!--         Select your Profile Pic : <input type="file" id="profilePic" /><br /> -->
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>

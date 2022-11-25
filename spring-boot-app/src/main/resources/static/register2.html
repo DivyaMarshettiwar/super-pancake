@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script>
+    	$(function () {
+      		$("#custform").submit(function(event) {
+      			event.preventDefault();
+      			let formData = new FormData();
+      			formData.append("name", $("#custName").val());
+      			formData.append("email", $("#custEmail").val());
+      			formData.append("password1", $("#custPass1").val());
+      			formData.append("password2", $("#custPass2").val());
+      			formData.append("mobileNumber", $("#custMobno").val());
+      			formData.append("profilePic", $("#profilePic")[0].files[0]);
+      			
+      			$.ajax({
+      				url: 'http://localhost:8080/register',
+      				type: 'POST',
+      				contentType: false,
+      				processData: false,
+      				data: formData,
+      				success: function(response) {
+      					alert(JSON.stringify(response));
+      				}
+      			})
+      		})
+    	})
+    </script>
+</head>
+
+<body>
+    <!-- <form id="custform" enctype="multipart/form-data" action="url"> -->
+    <form id="custform">
+        Enter Name: <input type="text" id="custName" /><br />
+        Enter Email: <input type= "email" id="custEmail" /><br />
+        Enter Password: <input type="password" id="custPass1"/><br />
+        Enter Password Confirm: <input type="password" id="custPass2"/><br />
+        Enter Mobile Number: <input type="number" id="custMobno" /><br />
+        Select your Profile Pic: <input type="file" id="profilePic" /> <br />
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
